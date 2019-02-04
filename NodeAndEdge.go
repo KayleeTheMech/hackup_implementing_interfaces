@@ -7,7 +7,7 @@ type Node struct {
 	id       int64
 }
 
-func NewNode(name string, identity int64) graph.Node {
+func NewNode(name string, identity int64) Node {
 	return Node{
 		NodeName: name,
 		id:       identity,
@@ -21,11 +21,11 @@ func (n Node) ID() int64 {
 type Edge struct {
 	EdgeName string
 	weight   float64
-	from     graph.Node
-	to       graph.Node
+	from     Node
+	to       Node
 }
 
-func NewEdge(name string, edgeWeight float64, fromNode graph.Node, toNode graph.Node) graph.WeightedEdge {
+func NewEdge(name string, edgeWeight float64, fromNode Node, toNode Node) Edge {
 	return Edge{
 		EdgeName: name,
 		weight:   edgeWeight,
@@ -38,7 +38,7 @@ func (e Edge) From() graph.Node {
 	return e.from
 }
 
-func (e Edge) To() graph.Node {
+func (e Edge) To()  graph.Node  {
 	return e.to
 }
 
