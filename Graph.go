@@ -2,6 +2,7 @@ package main
 
 import (
 	"gonum.org/v1/gonum/graph"
+	"gonum.org/v1/gonum/graph/iterator"
 	"math"
 )
 
@@ -15,11 +16,22 @@ func (g Graph) Node(id int64) graph.Node {
 }
 
 func (g Graph) Nodes() graph.Nodes {
+	returnNodes := make([]graph.Node, 0)
+	for _, node := range g.myNodes {
+		returnNodes = append(returnNodes, node)
+	}
 
+	return iterator.NewOrderedNodes(returnNodes)
 }
 
 func (g Graph) From(id int64) graph.Nodes {
-
+	returnArray := make([]graph.Node, 0)
+	for _, edge := range g.myEdges {
+		if edge.from.ID() == id {
+			returnArray = append(returnArray, edge.To())
+		}
+	}
+	return iterator.NewOrderedNodes(returnArray)
 }
 
 func (g Graph) HasEdgeBetween(xid, yid int64) bool {
