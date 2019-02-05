@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/davecgh/go-spew/spew"
 	"gonum.org/v1/gonum/graph/path"
 )
 
@@ -23,13 +22,16 @@ func main() {
 	g.AddNode(node6)
 
 	g.SetEdge(NewEdge("erste kante", 0.5, node1, node2))
-	g.SetEdge(NewEdge("zweite kante", 0.5, node1, node3))
+	g.SetEdge(NewEdge("zweite kante", 4.5, node1, node3))
 	g.SetEdge(NewEdge("dritte kante", 0.5, node3, node4))
 	g.SetEdge(NewEdge("vierte kante", 0.5, node4, node5))
 	g.SetEdge(NewEdge("fünfte kante", 0.5, node4, node6))
 
 	test, _ := path.AStar(node1, node6, g, nil)
 
-	spew.Dump(test.To(node6.id))
-
+	path, distance := test.To(node6.id)
+	for idx, node := range path {
+		fmt.Println(idx+1, "Step has ID", node.ID())
+	}
+	fmt.Println("Total distance to target node was", distance)
 }
